@@ -1,0 +1,16 @@
+https://www.geeksforgeeks.org/problems/-rearrange-array-alternately-1587115620/1
+https://www.geeksforgeeks.org/problems/majority-vote/0
+https://www.geeksforgeeks.org/problems/array-of-alternate-ve-and-ve-nos1401/1
+https://www.geeksforgeeks.org/problems/count-pairs-with-given-sum5022/1
+https://www.geeksforgeeks.org/problems/maximize-number-of-1s0905/1
+https://www.geeksforgeeks.org/problems/max-consecutive-one/1
+https://www.geeksforgeeks.org/problems/union-of-two-arrays3538/1
+https://www.geeksforgeeks.org/problems/union-of-two-sorted-arrays-1587115621/1
+https://www.geeksforgeeks.org/problems/union-find/1
+https://leetcode.com/problems/rotate-array/description/
+https://leetcode.com/problems/find-common-elements-between-two-arrays/description/
+https://leetcode.com/problems/check-if-array-is-sorted-and-rotated/description/
+https://www.youtube.com/watch?v=dmGybCohHsw&list=PLxCzCOWd7aiHRHVUtR-O52MsrdUSrzuy4
+https://www.youtube.com/watch?v=Zxwq3aW9ctU&list=PLsyeobzWxl7qbKoSgR5ub6jolI8-ocxCF
+https://www.youtube.com/watch?v=35EQXmHKZYs
+https://www.youtube.com/watch?v=gJrjgg1KVL4
