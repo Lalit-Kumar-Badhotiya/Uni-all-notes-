@@ -1,0 +1,29 @@
+ASSIGNMENT 7 DBMS LAB SOLUTION 
+desc student;
+alter table student drop column dob;
+--1
+alter table student add  Dob date;
+--2
+insert into student(dob) values ('16-oct-2007');
+--3
+select round(avg(cgpa),2) from student;
+--4
+select sid, sname , extract(year from dob) from student where marks<1000;
+--5
+select upper(sname),lower(cname) from student natural join apply;
+--6
+select substr(sname,4) from student;
+--7
+select sid,sname from student where length(sname)>3;
+--8
+select floor(Avg(cgpa)),ceil(avg(cgpa)),trunc(avg(cgpa),1) from student;
+--9
+select * from student where mod(sid,2)=0;
+--10
+select sqrt(900),power(24,7) from dual;
+--11
+select sid,sname,to_char(dob,'month,dd,yyyy')  from student;
+--12
+select to_date('26/02/2014','dd/mm/yyyy') from dual;
+--13
+select next_day(sysdate,'saturday'),last_day(sysdate) from dual;
