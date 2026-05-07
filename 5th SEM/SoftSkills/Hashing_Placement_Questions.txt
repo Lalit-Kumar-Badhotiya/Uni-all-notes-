@@ -1,0 +1,39 @@
+Part A: Basics of Hashing
+
+1. Introduction to HashMap & HashSet in Java.
+2. Count frequency of each element in an array.
+3. Check if two arrays are equal or not (using Hashing).
+4. Find first repeating / non-repeating element in an array.
+
+Part B: Easy Problems
+
+5. Union of two arrays.
+6. Intersection of two arrays.
+7. Check if array contains duplicate (simple case).
+8. Check if array contains duplicate within K distance.
+9. Find missing & repeating number in an array.
+
+Part C: Subarray & Prefix-Sum Based
+
+10. Subarray with given sum (only positive numbers).
+11. Subarray with 0 sum (positive + negative).
+12. Longest subarray with given sum K.
+13. Largest subarray with equal 0s and 1s.
+14. Count subarrays with given sum.
+
+Part D: Medium Placement Problems
+
+15. Two Sum Problem (classic).
+16. Triplet sum using hashing.
+17. Find pairs with given XOR.
+18. Longest consecutive subsequence.
+19. Group anagrams together (HashMap + Strings).
+
+Part E: Advanced / Coding Round Problems
+
+20. Subarray with equal number of 0s, 1s, and 2s.
+21. Count distinct elements in every window of size K.
+22. Check if subarray sum is divisible by K.
+23. Find four elements that sum to a given value (4-Sum Problem).
+24. Maximum length subarray with sum divisible by K.
+25. Maximum distance between two equal elements.
