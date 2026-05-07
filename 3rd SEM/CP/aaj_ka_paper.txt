@@ -1,0 +1,53 @@
+Q1- Factorial
+import math 
+N = int(input()) 
+print(math.factorial(N)) 
+---------------------------------------------------------------------
+Q2-Is Palindrome
+
+def is_palindrome(arr, start, end): 
+    if start >= end: 
+        return True 
+    if arr[start] != arr[end]: 
+        return False 
+    return is_palindrome(arr,start + 1, end -1) 
+N = int(input()) 
+arr = [int(input()) for _ in range(N)] 
+result = is_palindrome(arr, 0, N - 1) 
+if result: 
+    print("true") 
+else: 
+    print("false") 
+----------------------------------------------------------------------
+Q3- Array Target Sum pairs
+def find_pairs(arr, target): 
+    arr.sort() 
+    left = 0 
+    right = len(arr) - 1 
+    while left < right: 
+        current_sum = arr[left] + arr[right] 
+        if current_sum == target: 
+            print("{} and {}".format(arr[left], arr[right])) 
+            left += 1 
+            right -= 1 
+        elif current_sum < target: 
+            left += 1 
+        else: 
+            right -= 1 
+N = int(input()) 
+arr = [] 
+for _ in range(N): 
+    arr.append(int(input())) 
+target = int(input()) 
+find_pairs(arr, target)
+
+-----------------------------------------------------------------------
+Q4-Unique Number -1
+n = int(input()) 
+arr = list(map(int, input().split())) 
+unique_number = 0 
+for num in arr: 
+    unique_number ^= num 
+ 
+print(unique_number) 
+

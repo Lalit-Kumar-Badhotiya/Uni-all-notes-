@@ -1,0 +1,1015 @@
+------------------------------------------------------------SET.1--------------------------------------------
+
+Q.1 write a shell script that takes a number as an input and prints its reverse if the number is divisible by 5.
+
+#!/bin/bash
+
+# Prompt the user for input
+read -p "Enter a number: " number
+
+# Check if the input is divisible by 5
+if (( number % 5 == 0 )); then
+    # Reverse the number
+    reversed_number=""
+    for (( i = ${#number}-1; i >= 0; i-- )); do
+        reversed_number="${reversed_number}${number:$i:1}"
+    done
+    echo "Reversed Number: $reversed_number"
+else
+    echo "The number is not divisible by 5."
+fi
+
+
+Q.2 write a shell script that prints factorial of a number.
+
+#!/bin/bash
+
+# Prompt the user for input
+read -p "Enter a number to calculate its factorial: " number
+
+# Check if the input is a non-negative integer
+if ! [[ "$number" =~ ^[0-9]+$ ]]; then
+    echo "Error: Please enter a non-negative integer."
+    exit 1
+fi
+
+# Initialize factorial value
+factorial=1
+
+# Calculate factorial using a loop
+for (( i=1; i<=number; i++ )); do
+    factorial=$((factorial * i))
+done
+
+# Print the result
+echo "The factorial of $number is: $factorial"
+
+
+------------------------------------------------------------SET.2-------------------------------------------------------
+
+Q.1 write a shell script that implements switch case and take 3 numbers as an input from the user along with the case value. if the user press 'a' then print the larger value if the user press 'b' prints the smallest value and in default case print the average of all three numbers.
+
+#!/bin/bash
+
+# Prompt the user to enter three numbers
+read -p "Enter the first number: " num1
+read -p "Enter the second number: " num2
+read -p "Enter the third number: " num3
+
+# Prompt the user to enter a choice
+echo "Choose an option:"
+echo "a) Find the largest number"
+echo "b) Find the smallest number"
+echo "c) Find the average of the numbers"
+read -p "Enter your choice (a/b/c): " choice
+
+# Perform the action based on the user's choice
+case $choice in
+    a)
+        # Find the largest number
+        largest=$num1
+        if (( num2 > largest )); then
+            largest=$num2
+        fi
+        if (( num3 > largest )); then
+            largest=$num3
+        fi
+        echo "The largest number is: $largest"
+        ;;
+    b)
+        # Find the smallest number
+        smallest=$num1
+        if (( num2 < smallest )); then
+            smallest=$num2
+        fi
+        if (( num3 < smallest )); then
+            smallest=$num3
+        fi
+        echo "The smallest number is: $smallest"
+        ;;
+    c)
+        # Calculate the average
+        average=$(echo "scale=2; ($num1 + $num2 + $num3) / 3" | bc)
+        echo "The average of the numbers is: $average"
+        ;;
+    *)
+        # Default case for invalid input
+        echo "Invalid choice. Please enter a valid option (a/b/c)."
+        ;;
+esac
+
+
+Q.2 write a shell script that checks whether the given number is even or odd.
+
+#!/bin/bash
+
+# Prompt the user for input
+read -p "Enter a number to check if it's even or odd: " number
+
+# Check if the number is even or odd
+if (( number % 2 == 0 )); then
+    echo "The number $number is even."
+else
+    echo "The number $number is odd."
+fi
+
+
+-----------------------------------------------------------SET.3---------------------------------------------------------
+
+Q.1 write a shell script to print a right angled triangle pattern using nested loops.
+    *
+    **
+    ***
+    ****
+#!/bin/bash
+
+# Prompt the user for the number of rows
+read -p "Enter the number of rows for the triangle: " rows
+
+# Outer loop for the rows
+for (( i=1; i<=rows; i++ )); do
+    # Inner loop for printing stars
+    for (( j=1; j<=i; j++ )); do
+        echo -n "*"
+    done
+    # Print a newline after each row
+    echo
+done
+
+
+Q.2 write a shell script that checks whether the given number is prime or not.
+
+#!/bin/bash
+
+# Prompt the user for input
+read -p "Enter a number to check if it's prime: " number
+
+# Assume the number is prime
+is_prime=1
+
+# Check divisors from 2 to the square root of the number
+for (( i=2; i*i<=number; i++ )); do
+    if (( number % i == 0 )); then
+        is_prime=0
+        break
+    fi
+done
+
+# Output the result
+if (( is_prime == 1 && number > 1 )); then
+    echo "$number is a prime number."
+else
+    echo "$number is not a prime number."
+fi
+
+
+-----------------------------------------------------------------SET.4-------------------------------------------------------
+
+Q.1 write a shell script to print the multiples of a given number up to a specified limit.
+
+#!/bin/bash
+
+# Prompt the user for the number
+read -p "Enter the number to find its multiples: " number
+
+# Prompt the user for the limit
+read -p "Enter the limit up to which multiples should be printed: " limit
+
+# Print multiples of the number
+echo "Multiples of $number up to $limit are:"
+for (( i=1; i*number<=limit; i++ )); do
+    echo $(( i * number ))
+done
+
+
+Q.2. write a shell script to input the name of a file as command line argument and display whether it is a file, a directory or anything else.
+
+#!/bin/bash
+
+# Check if a file name is provided as a command-line argument
+if [ -z "$1" ]; then
+    echo "Usage: $0 <filename>"
+    exit 1
+fi
+
+# Store the file/directory name
+file_name="$1"
+
+# Check if the provided input is a file, directory, or something else
+if [ -f "$file_name" ]; then
+    echo "$file_name is a regular file."
+elif [ -d "$file_name" ]; then
+    echo "$file_name is a directory."
+else
+    echo "$file_name is neither a regular file nor a directory."
+fi
+
+
+-----------------------------------------------------------------SET.5---------------------------------------------------------
+
+Q.1 write a shell script to create two empty file and ask the user to insert some content in these files. and then check whether the content in these two files is same or not.
+
+#!/bin/bash
+
+# Create two empty files
+touch file1.txt file2.txt
+
+# Prompt the user to enter content for file1
+echo "Enter content for file1.txt:"
+read content1
+echo "$content1" > file1.txt
+
+# Prompt the user to enter content for file2
+echo "Enter content for file2.txt:"
+read content2
+echo "$content2" > file2.txt
+
+# Compare the contents of both files
+if cmp -s file1.txt file2.txt; then
+    echo "The contents of the two files are the same."
+else
+    echo "The contents of the two files are different."
+fi
+
+
+Q.2 implement rmdir and rm command. also state the difference between the two.
+
+Differences Between rmdir and rm:
+rmdir (Remove Directory):
+
+Functionality: Removes empty directories.
+Restrictions: The directory must be empty for rmdir to work. If there are files or subdirectories inside, it will give an error (unless the directory is empty).
+Example Use: rmdir mydir
+rm (Remove File/Directory):
+
+Functionality: Removes files and can also remove directories (with the -r option for recursive deletion).
+Flexibility: It can delete files even if they are not empty. When used with the -r option, it can also delete non-empty directories and their contents.
+Example Use: rm myfile.txt, rm -r mydir
+In summary:
+
+rmdir can only remove empty directories.
+rm can remove both files and directories (with the recursive -r flag for directories) and does not require the directory to be empty.
+
+----------------------------------------------------------------SET.6----------------------------------------------------------
+
+Q.1 write a shell script that counts the number of vowels in a given string.
+
+#!/bin/bash
+
+# Prompt the user to enter a string
+read -p "Enter a string: " input_string
+
+# Initialize vowel count
+vowel_count=0
+
+# Loop through each character in the string
+for (( i=0; i<${#input_string}; i++ )); do
+    char="${input_string:$i:1}"
+    
+    # Check if the character is a vowel (lowercase or uppercase)
+    if [[ "$char" =~ [aeiouAEIOU] ]]; then
+        ((vowel_count++))
+    fi
+done
+
+# Output the result
+echo "The number of vowels in the string is: $vowel_count"
+
+
+Q.2 write a shell script that checks whether the given number is prime or not if it is divisible by 6.
+
+#!/bin/bash
+
+# Prompt the user for input
+read -p "Enter a number: " number
+
+# Check if the number is divisible by 6
+if (( number % 6 == 0 )); then
+    # Check if the number is prime
+    is_prime=1  # Assume the number is prime
+
+    if (( number <= 1 )); then
+        is_prime=0
+    else
+        for (( i=2; i*i<=number; i++ )); do
+            if (( number % i == 0 )); then
+                is_prime=0
+                break
+            fi
+        done
+    fi
+
+    # Output the result
+    if (( is_prime == 1 )); then
+        echo "$number is a prime number and divisible by 6."
+    else
+        echo "$number is not a prime number but divisible by 6."
+    fi
+else
+    echo "$number is not divisible by 6."
+fi
+
+
+-----------------------------------------------------------------SET.7----------------------------------------------------------
+
+Q.1 write a shell script that take 10 inputs from the user in an array and replaces the middle value with the first element of an array if the middle value is greater than the first element.
+
+#!/bin/bash
+
+# Declare an empty array to store the user inputs
+declare -a arr
+
+# Prompt the user to enter 10 values
+echo "Please enter 10 values:"
+for (( i=0; i<10; i++ )); do
+    read -p "Enter value $((i+1)): " arr[$i]
+done
+
+# Get the middle index (for 10 elements, middle index is 4)
+middle_index=4
+
+# Check if the middle value is greater than the first element
+if (( arr[$middle_index] > arr[0] )); then
+    arr[$middle_index]=${arr[0]}  # Replace middle value with the first element
+    echo "The middle value has been replaced with the first element."
+fi
+
+# Display the updated array
+echo "Updated array:"
+for (( i=0; i<10; i++ )); do
+    echo -n "${arr[$i]} "
+done
+echo  # New line for better formatting
+
+
+Q.2 implement pwd and ls command stating their uses.
+
+pwd Command:
+Full Form: Print Working Directory
+Usage: The pwd command is used to display the current directory or the absolute path of the working directory you are in.
+Example:
+bash
+Copy code
+$ pwd
+/home/user/Documents
+This command will print the full path to the current directory you are working in.
+
+Common Use Case:
+When you want to know your current location in the filesystem.
+ls Command:
+Full Form: List
+Usage: The ls command is used to list the contents of a directory, such as files and subdirectories. It can be used with various options to modify the output.
+Basic Example:
+bash
+Copy code
+$ ls
+file1.txt  file2.txt  directory1  directory2
+This command lists the files and directories in the current directory.
+
+Common Options with ls:
+-l: Lists in long format, showing detailed information (permissions, ownership, size, etc.).
+-a: Shows all files, including hidden files (those starting with .).
+-h: Shows file sizes in a human-readable format (e.g., KB, MB).
+-R: Lists subdirectories recursively.
+Example with options:
+bash
+Copy code
+$ ls -l
+total 4
+-rw-r--r-- 1 user user 1234 Dec  4 12:30 file1.txt
+-rw-r--r-- 1 user user 5678 Dec  4 12:32 file2.txt
+drwxr-xr-x 2 user user 4096 Dec  4 12:33 directory1
+drwxr-xr-x 2 user user 4096 Dec  4 12:34 directory2
+This will display detailed information about each file/directory, such as permissions, ownership, size, and modification time.
+Common Use Case:
+To view the files and directories in your current or specified location.
+To check the contents of a directory and get detailed file information.
+In Summary:
+pwd shows your current directory.
+ls lists the contents of a directory.
+
+
+----------------------------------------------------------------------SET.8--------------------------------------------------
+
+Q.1 write a shell script that takes 15 values from the user in an array and print the array in reverse order.
+
+#!/bin/bash
+
+# Declare an array to store 15 values
+declare -a arr
+
+# Prompt the user to enter 15 values
+echo "Please enter 15 values:"
+for (( i=0; i<15; i++ )); do
+    read -p "Enter value $((i+1)): " arr[$i]
+done
+
+# Print the array in reverse order
+echo "Array in reverse order:"
+for (( i=14; i>=0; i-- )); do
+    echo -n "${arr[$i]} "
+done
+echo  # New line for better formatting
+
+
+Q.2 write a shell script to check if a given number is an Armstrong number.
+
+#!/bin/bash
+
+# Prompt the user to enter a number
+read -p "Enter a number: " number
+
+# Get the number of digits in the number
+num_digits=${#number}
+
+# Initialize sum to 0
+sum=0
+temp=$number
+
+# Loop through each digit of the number
+while [ $temp -gt 0 ]; do
+    # Get the last digit
+    digit=$((temp % 10))
+
+    # Add the digit raised to the power of num_digits to the sum
+    sum=$((sum + digit**num_digits))
+
+    # Remove the last digit from the number
+    temp=$((temp / 10))
+done
+
+# Check if the sum is equal to the original number
+if [ $sum -eq $number ]; then
+    echo "$number is an Armstrong number."
+else
+    echo "$number is not an Armstrong number."
+fi
+
+
+---------------------------------------------------------------------SET.9-----------------------------------------------------
+
+Q.1
+
+Q.2
+
+----------------------------------------------------------------SET.10----------------------------------------------------------
+
+Q.1
+
+Q.2
+
+------------------------------------------------------------------SET.11--------------------------------------------------------
+
+Q.1 write a shell script that takes a number as a input from the user and check whether it is even or odd. if the number is even than print its multiple up to 10 otherwise if it is odd print the message "YOU ARE ODD ONE OUT".
+
+#!/bin/bash
+
+# Prompt the user to enter a number
+read -p "Enter a number: " num
+
+# Check if the number is even or odd
+if (( num % 2 == 0 )); then
+    echo "$num is an even number."
+    echo "Multiples of $num up to 10 are:"
+    for (( i=1; i<=10; i++ )); do
+        multiple=$(( num * i ))  # Calculate the multiple
+        echo "$multiple"
+    done
+else
+    echo "YOU ARE ODD ONE OUT"
+fi
+
+
+Q.2 write a shell script to whether the file has all the permission or not.
+
+#!/bin/bash
+
+# Prompt the user to enter the file name
+read -p "Enter the file name: " filename
+
+# Check if the file exists
+if [ ! -e "$filename" ]; then
+    echo "File does not exist."
+    exit 1
+fi
+
+# Check if the file has all permissions
+if [ -r "$filename" ] && [ -w "$filename" ] && [ -x "$filename" ]; then
+    echo "The file has read, write, and execute permissions for the owner."
+else
+    echo "The file does not have all permissions (read, write, execute) for the owner."
+fi
+
+# Check for group permissions
+if [ -r "$filename" ] && [ -w "$filename" ] && [ -x "$filename" ]; then
+    echo "The file has read, write, and execute permissions for the group."
+else
+    echo "The file does not have all permissions (read, write, execute) for the group."
+fi
+
+# Check for others' permissions
+if [ -r "$filename" ] && [ -w "$filename" ] && [ -x "$filename" ]; then
+    echo "The file has read, write, and execute permissions for others."
+else
+    echo "The file does not have all permissions (read, write, execute) for others."
+fi
+
+
+
+--------------------------------------------------------------------SET.12----------------------------------------------------
+
+Q.1
+
+Q.2
+
+-------------------------------------------------------------------------SET.13--------------------------------------------------
+
+Q.1 write a shell script that implements switch case: if the user chooses case 1 then calculate the factorial of a number and if the user chooses case 2 then check whether the number is even or odd don't forget to take default case as well.
+
+#!/bin/bash
+
+# Function to calculate factorial
+factorial() {
+    num=$1
+    fact=1
+    for (( i=1; i<=num; i++ )); do
+        fact=$((fact * i))
+    done
+    echo "Factorial of $num is: $fact"
+}
+
+# Function to check if the number is even or odd
+check_even_odd() {
+    num=$1
+    if (( num % 2 == 0 )); then
+        echo "$num is an Even number."
+    else
+        echo "$num is an Odd number."
+    fi
+}
+
+# Display menu
+echo "Choose an option:"
+echo "1. Calculate factorial of a number"
+echo "2. Check whether a number is even or odd"
+echo "3. Exit"
+
+# Read user choice
+read -p "Enter your choice: " choice
+
+# Switch case implementation using case statement
+case $choice in
+    1)
+        # If user chooses 1, calculate factorial
+        read -p "Enter a number to calculate its factorial: " num
+        factorial $num
+        ;;
+    2)
+        # If user chooses 2, check even or odd
+        read -p "Enter a number to check if it is even or odd: " num
+        check_even_odd $num
+        ;;
+    3)
+        # Exit the script
+        echo "Exiting..."
+        exit 0
+        ;;
+    *)
+        # Default case for invalid inputs
+        echo "Invalid choice, please select 1, 2, or 3."
+        ;;
+esac
+
+
+Q.2 write a shell script to print the square of a number, if the number is divisible by 2.
+
+#!/bin/bash
+
+# Prompt the user to enter a number
+read -p "Enter a number: " num
+
+# Check if the number is divisible by 2
+if (( num % 2 == 0 )); then
+    # If divisible by 2, calculate and print the square
+    square=$(( num * num ))
+    echo "The square of $num is: $square"
+else
+    # If not divisible by 2, print a message
+    echo "$num is not divisible by 2."
+fi
+
+
+----------------------------------------------------------------SET.14----------------------------------------------------------
+
+Q.1 write a shell script that take 'n' number of inputs from the user in an array and prints the average of these number.
+
+#!/bin/bash
+
+# Prompt the user to enter the number of elements
+read -p "Enter the number of elements: " n
+
+# Declare an array to store the numbers
+declare -a arr
+
+# Prompt the user to enter 'n' numbers
+echo "Enter $n numbers:"
+sum=0
+for (( i=0; i<n; i++ )); do
+    read -p "Enter number $((i+1)): " arr[$i]
+    sum=$((sum + arr[$i]))
+done
+
+# Calculate the average
+average=$(echo "$sum / $n" | bc -l)
+
+# Print the average
+echo "The average of the entered numbers is: $average"
+
+
+Q.2 write a shell script to display the Fibonacci series up to a specified limit n.
+
+#!/bin/bash
+
+# Prompt the user to enter the limit (number of terms)
+read -p "Enter the number of terms in the Fibonacci series: " n
+
+# Initialize the first two terms of the Fibonacci series
+a=0
+b=1
+
+# Print the Fibonacci series
+echo "Fibonacci series up to $n terms:"
+
+for (( i=0; i<n; i++ )); do
+    # Print the current term
+    echo -n "$a "
+
+    # Calculate the next term in the series
+    fib=$((a + b))
+    a=$b
+    b=$fib
+done
+
+echo  # Print a newline for better formatting
+
+
+
+
+---------------------------------------------------------------SET.15------------------------------------------------------------
+
+Q.1 write a shell script to print the multiples of a number in the specified range.
+
+#!/bin/bash
+
+# Prompt the user to enter the number and the range
+read -p "Enter the number: " num
+read -p "Enter the start of the range: " start
+read -p "Enter the end of the range: " end
+
+# Print multiples of the given number within the specified range
+echo "Multiples of $num from $start to $end:"
+
+for (( i=$start; i<=$end; i++ )); do
+    if (( i % num == 0 )); then
+        echo -n "$i "
+    fi
+done
+
+echo  # New line for better formatting
+
+
+Q.2 write a shell script to print the cube of a number, if the number is divisible by 5.
+
+#!/bin/bash
+
+# Prompt the user to enter a number
+read -p "Enter a number: " num
+
+# Check if the number is divisible by 5
+if (( num % 5 == 0 )); then
+    # If divisible by 5, calculate and print the cube
+    cube=$(( num ** 3 ))
+    echo "The cube of $num is: $cube"
+else
+    # If not divisible by 5, print a message
+    echo "$num is not divisible by 5."
+fi
+
+
+
+
+-----------------------------------------------------------SET.16------------------------------------------------------------
+
+Q.1 write a shell script that checks whether the number is Armstrong or not, if the number is between the range 560 to 888.
+
+#!/bin/bash
+
+# Prompt the user to enter a number
+read -p "Enter a number: " num
+
+# Check if the number is within the range 560 to 888
+if (( num >= 560 && num <= 888 )); then
+    # Get the number of digits in the number
+    num_digits=${#num}
+
+    # Initialize sum to 0
+    sum=0
+    temp=$num
+
+    # Loop through each digit of the number
+    while (( temp > 0 )); do
+        # Get the last digit
+        digit=$((temp % 10))
+
+        # Add the digit raised to the power of num_digits to the sum
+        sum=$((sum + digit**num_digits))
+
+        # Remove the last digit from the number
+        temp=$((temp / 10))
+    done
+
+    # Check if the sum is equal to the original number
+    if (( sum == num )); then
+        echo "$num is an Armstrong number."
+    else
+        echo "$num is not an Armstrong number."
+    fi
+else
+    echo "The number is not in the range of 560 to 888."
+fi
+
+
+
+Q.2 write a shell script to check whether the content of two files is same or not.
+
+#!/bin/bash
+
+# Prompt the user to enter the names of two files
+read -p "Enter the name of the first file: " file1
+read -p "Enter the name of the second file: " file2
+
+# Check if both files exist
+if [[ ! -f "$file1" ]]; then
+    echo "File '$file1' does not exist."
+    exit 1
+fi
+
+if [[ ! -f "$file2" ]]; then
+    echo "File '$file2' does not exist."
+    exit 1
+fi
+
+# Compare the contents of the two files
+if cmp -s "$file1" "$file2"; then
+    echo "The contents of '$file1' and '$file2' are the same."
+else
+    echo "The contents of '$file1' and '$file2' are different."
+fi
+
+
+------------------------------------------------------------------SET.17------------------------------------------------------------
+
+Q.1 implement ls and head command.
+
+ls Command
+The ls command in Linux/Unix is used to list the contents of a directory. It provides detailed information about files and directories present in the directory.
+
+Common ls Options:
+Basic Usage:
+
+bash
+Copy code
+ls
+Lists the names of files and directories in the current working directory.
+ls -l: List in long format, showing permissions, owner, group, size, and the date the file was last modified.
+
+bash
+Copy code
+ls -l
+ls -a: Lists all files, including hidden files (those starting with a dot .).
+
+bash
+Copy code
+ls -a
+ls -h: Shows file sizes in human-readable format (e.g., KB, MB).
+
+bash
+Copy code
+ls -lh
+ls -R: Recursively lists directories and their contents.
+
+bash
+Copy code
+ls -R
+ls -t: Sort files by modification time, with the newest files first.
+
+bash
+Copy code
+ls -t
+ls -S: Sort files by size, with the largest files first.
+
+bash
+Copy code
+ls -S
+Examples:
+List files in the current directory:
+bash
+Copy code
+ls
+List files with detailed information:
+bash
+Copy code
+ls -l
+List all files, including hidden files:
+bash
+Copy code
+ls -a
+head Command
+The head command in Linux/Unix is used to display the first few lines of a file or output. By default, it shows the first 10 lines.
+
+Common head Options:
+Basic Usage:
+
+bash
+Copy code
+head filename
+Displays the first 10 lines of the specified file.
+head -n NUM: Displays the first NUM lines of a file. You can specify the number of lines you want to view.
+
+bash
+Copy code
+head -n 20 filename
+head -c NUM: Displays the first NUM bytes of a file (instead of lines).
+
+bash
+Copy code
+head -c 50 filename
+head -q: Suppresses the output of the file name when displaying multiple files.
+
+bash
+Copy code
+head -q file1 file2
+Examples:
+Display the first 10 lines of a file:
+bash
+Copy code
+head file.txt
+Display the first 20 lines of a file:
+bash
+Copy code
+head -n 20 file.txt
+Display the first 50 bytes of a file:
+bash
+Copy code
+head -c 50 file.txt
+Both the ls and head commands are very useful for navigating and inspecting the contents of files and directories.
+
+Q.2 write a shell script to check whether the given number is prime or not and whether it is even or odd.
+
+#!/bin/bash
+
+# Prompt the user to enter a number
+read -p "Enter a number: " num
+
+# Check if the number is even or odd
+if (( num % 2 == 0 )); then
+    echo "$num is an even number."
+else
+    echo "$num is an odd number."
+fi
+
+# Check if the number is prime
+if (( num <= 1 )); then
+    echo "$num is not a prime number."
+else
+    is_prime=1  # Assume the number is prime
+    for (( i=2; i*i<=num; i++ )); do
+        if (( num % i == 0 )); then
+            is_prime=0  # Number is divisible by i, so it's not prime
+            break
+        fi
+    done
+
+    if (( is_prime == 1 )); then
+        echo "$num is a prime number."
+    else
+        echo "$num is not a prime number."
+    fi
+fi
+
+
+----------------------------------------------------------------SET.18-------------------------------------------------------
+
+Q.1 write a shell script that take 10 values from the user in an array and print the square of each number in an array.
+
+#!/bin/bash
+
+# Declare an array to store 10 numbers
+declare -a numbers
+
+# Prompt the user to enter 10 numbers
+echo "Enter 10 numbers:"
+for (( i=0; i<10; i++ )); do
+    read -p "Enter number $((i+1)): " numbers[$i]
+done
+
+# Print the square of each number
+echo "The squares of the entered numbers are:"
+for (( i=0; i<10; i++ )); do
+    square=$(( numbers[$i] ** 2 ))  # Calculate square of the number
+    echo "Square of ${numbers[$i]} is $square"
+done
+
+
+Q.2 write a shell script to check whether the two numbers entered by the user is same or not.
+
+#!/bin/bash
+
+# Prompt the user to enter two numbers
+read -p "Enter the first number: " num1
+read -p "Enter the second number: " num2
+
+# Compare the two numbers
+if [ "$num1" -eq "$num2" ]; then
+    echo "The numbers are the same."
+else
+    echo "The numbers are different."
+fi
+
+
+
+
+-----------------------------------------------------------------SET.19-------------------------------------------------------------
+
+Q.1
+
+Q.2
+
+------------------------------------------------------------------SET.20-------------------------------------------------------------
+
+Q.1 write a shell script that implements switch case and take range as an input from the user; case A print only odd numbers within the specified range and case B prints the even numbers within the specified range.
+
+#!/bin/bash
+
+# Prompt the user to enter the range (start and end)
+read -p "Enter the start of the range: " start
+read -p "Enter the end of the range: " end
+
+# Prompt the user to choose the case
+echo "Choose an option:"
+echo "A - Print odd numbers"
+echo "B - Print even numbers"
+read -p "Enter your choice (A/B): " choice
+
+# Implement switch-case based on user input
+case $choice in
+    A|a)
+        echo "Odd numbers in the range $start to $end are:"
+        for (( i=$start; i<=$end; i++ )); do
+            if (( i % 2 != 0 )); then
+                echo -n "$i "
+            fi
+        done
+        echo  # New line for better formatting
+        ;;
+    B|b)
+        echo "Even numbers in the range $start to $end are:"
+        for (( i=$start; i<=$end; i++ )); do
+            if (( i % 2 == 0 )); then
+                echo -n "$i "
+            fi
+        done
+        echo  # New line for better formatting
+        ;;
+    *)
+        echo "Invalid choice. Please choose either A or B."
+        ;;
+esac
+
+
+Q.2 write a shell script to print sum of all digits of the specified three digit number.
+
+#!/bin/bash
+
+# Prompt the user to enter a three-digit number
+read -p "Enter a three-digit number: " num
+
+# Check if the number is a valid three-digit number
+if [[ $num -ge 100 && $num -le 999 ]]; then
+    # Initialize sum to 0
+    sum=0
+
+    # Extract each digit and add to sum
+    while (( num > 0 )); do
+        digit=$(( num % 10 ))    # Get the last digit
+        sum=$(( sum + digit ))   # Add the digit to the sum
+        num=$(( num / 10 ))      # Remove the last digit from the number
+    done
+
+    # Output the sum of the digits
+    echo "The sum of the digits is: $sum"
+else
+    echo "Please enter a valid three-digit number."
+fi
+
+

@@ -1,0 +1,41 @@
+1.list of tuples
+2.a b c
+3.a b c
+4.Error
+  65
+5.Hello World!
+  Hello World!
+6.Error as tuple is immutable
+7.accept
+8.IndexError
+9.NameError
+10.TypeError
+11.finally
+12.AssignmentError
+13.
+14.Hello
+   worldworldworldworldworld
+15.a is 3 and b is 7 and c is 10
+   a is 25 and b is 5 and c is 24
+   a is 100 and b is 5 and c is 50
+16.3
+17.all of the mentioned
+18.built in function & user defined function
+19.Id returns the identity of the object
+20.sqrt
+21.abc
+   abc
+   def
+   abc
+   ghi
+   ghi
+22.10
+   56
+23.num*fact(num-1)
+24.(2,4)
+25.(1,2,1,2)
+26.Error
+27.Integer
+28.('checkcheckcheck')
+29.0a1b2c
+30.85.0
